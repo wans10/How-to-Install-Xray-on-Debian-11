@@ -16,9 +16,9 @@ sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_
 reboot
 ```
 ## 2. 安装socat并执行更新
-### 安装socat，wegt
+### 安装依赖
 ```
-sudo apt-get install socat wegt -y
+sudo apt-get install openssl cron socat curl wegt -y
 ```
 ### 执行更新
 ```
