@@ -15,7 +15,7 @@ sed -i 's/PermitRootLogin no/PermitRootLogin yes/g' /etc/ssh/sshd_config
 sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
 reboot
 ```
-## 2. 安装socat并执行更新
+## 2. 安装依赖并执行更新
 ### 安装依赖
 ```
 sudo apt-get install openssl cron socat curl wegt -y
