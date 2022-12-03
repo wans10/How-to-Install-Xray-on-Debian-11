@@ -16,19 +16,14 @@ sed -i 's/PermitRootLogin no/PermitRootLogin yes/g' /etc/ssh/sshd_config
 sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
 reboot
 ```
-### 1.2 修改en_US.UTF-8
-```
-echo "export LC_ALL=en_US.UTF-8"  >>  /etc/profile
-source /etc/profile
-```
-
 ## 2. 安装并执行更新
 ```
-sudo yum check-update
-sudo yum update
-sudo reboot
+sudo apt update && sudo apt upgrade -y
 ```
-
+###可选-自动删除旧包和依赖项
+```
+sudo apt autoremove
+```
 ## 3. 安装CentOS 8.0新内核
 ```
 rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
