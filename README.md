@@ -18,7 +18,7 @@ reboot
 ## 2. 安装依赖并执行更新
 ### 安装依赖
 ```
-sudo apt-get install openssl cron socat curl wget nginx
+sudo apt-get install openssl cron socat curl wget nginx unzip
 ```
 ### 执行更新
 ```
