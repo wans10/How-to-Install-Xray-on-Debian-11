@@ -28,53 +28,30 @@ sudo apt update && sudo apt upgrade -y
 ```
 sudo apt autoremove
 ```
-## 3. 安装CentOS 8.0新内核
+## 3. 安装Google BBR
+### 3.1 为了启用BBR算法，需要修改sysctl配置：
 ```
-rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
-yum install https://www.elrepo.org/elrepo-release-8.el8.elrepo.noarch.rpm
-yum --enablerepo=elrepo-kernel install kernel-ml
+echo 'net.core.default_qdisc=fq' | sudo tee -a /etc/sysctl.conf
+echo 'net.ipv4.tcp_congestion_control=bbr' | sudo tee -a /etc/sysctl.conf
+sudo sysctl -p
 ```
-
-## 4. 安装必要组件
+### 3.2 使用以下命令确认 BBR 已启用：
 ```
-yum install -y curl tar socat wget epel-release 
+sudo sysctl net.ipv4.tcp_available_congestion_control
 ```
-
-## 5. 安装并启动Nginx
+### 3.3 验证：
 ```
-yum install -y nginx
-systemctl start nginx
+sudo sysctl -n net.ipv4.tcp_congestion_control
 ```
-
-## 6. 防火墙设置(若VPS防火墙默认关闭，此步骤可跳过）
-### 6.1 VPS开启防火墙，放行指定端口
+### 3.4 检查内核模块是否已加载：
 ```
-firewall-cmd --state     # 查看防火墙状态
-firewall-cmd --zone=public --add-port=80/tcp --permanent     # 开启防火墙80端口
-firewall-cmd --zone=public --add-port=443/tcp --permanent     # 开启防火墙443端口
-firewall-cmd --reload
+lsmod | grep bbr
 ```
-### 6.2 或关闭防火墙
+## 4. 安装acme.sh
 ```
-firewall-cmd --state     # 查看防火墙状态
-systemctl stop firewalld.service     # 停止防火墙
-systemctl disable firewalld.service     # 禁止防火墙开机自启
-reboot
-```
-
-## 7. 安装Xray
-### 7.1 安装Xray
-```
-bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install -u root
-xray uuid     # UUID
-```
-### 7.2 VLESS over TCP with XTLS + 回落 & 分流 to WHATEVER（终极配置）（路径：usr/local/etc/config.jason）
-
-## 8. 安装acme.sh
-```
-systemctl stop nginx     # 停止Nginx
 curl  https://get.acme.sh | sh -s email=my@example.com     # 替换my@example.com为自己的邮箱地址
-~/.acme.sh/acme.sh  --issue -d www.mydomain.com   --standalone     # 替换www.mydomain.com为自己的域名地址
+alias acme.sh=~/.acme.sh/acme.sh
+acme.sh --issue -d mydomain.com --standalone --keylength ec-256     # 替换mydomain.com为自己的域名地址
 ~/.acme.sh/acme.sh --install-cert -d www.mydomain.com --key-file /root/private.key --fullchain-file /root/cert.crt     # 替换www.mydomain.com为自己的域名地址
 ~/.acme.sh/acme.sh  --upgrade  --auto-upgrade
 systemctl enable nginx     # 开机自动启动Nginx
@@ -83,22 +60,17 @@ systemctl restart xray     # 重新启动Xray
 systemctl status xray     # 查看Xray运行状态
 ```
 
-## 9. 安装Google BBR
-### 9.1 为了启用BBR算法，需要修改sysctl配置：
+## 5. 安装并启动Nginx
 ```
-echo 'net.core.default_qdisc=fq' | sudo tee -a /etc/sysctl.conf
-echo 'net.ipv4.tcp_congestion_control=bbr' | sudo tee -a /etc/sysctl.conf
-sudo sysctl -p
+yum install -y nginx
+systemctl start nginx
 ```
-### 9.2 使用以下命令确认 BBR 已启用：
+
+
+## 7. 安装Xray
+### 7.1 安装Xray
 ```
-sudo sysctl net.ipv4.tcp_available_congestion_control
+bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install -u root
+xray uuid     # UUID
 ```
-### 9.3 验证：
-```
-sudo sysctl -n net.ipv4.tcp_congestion_control
-```
-### 9.4 检查内核模块是否已加载：
-```
-lsmod | grep bbr
-```
+### 7.2 VLESS over TCP with XTLS + 回落 & 分流 to WHATEVER（终极配置）（路径：usr/local/etc/config.jason）
