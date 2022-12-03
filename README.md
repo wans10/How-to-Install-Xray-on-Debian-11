@@ -19,7 +19,7 @@ reboot
 ## 2. 安装socat并执行更新
 ### 安装socat
 ```
-apt install -y socat
+sudo apt-get install socat -y
 ```
 ### 执行更新
 ```
