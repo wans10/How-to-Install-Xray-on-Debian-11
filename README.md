@@ -1,4 +1,4 @@
-# CentOS手动安装Xray
+# Debian 11手动安装Xray
 ## 此方法适用root权限CentOS 8.0系统，其他版本CentOS未测试
 
 ## 1. 准备工作
@@ -17,10 +17,14 @@ sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_
 reboot
 ```
 ## 2. 安装并执行更新
+### 安装socat
+```
+apt install -y socat
+```
 ```
 sudo apt update && sudo apt upgrade -y
 ```
-###可选-自动删除旧包和依赖项
+### 可选-自动删除旧包和依赖项
 ```
 sudo apt autoremove
 ```
