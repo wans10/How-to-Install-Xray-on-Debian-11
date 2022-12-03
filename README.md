@@ -1,5 +1,4 @@
 # Debian 11手动安装Xray
-## 此方法适用root权限CentOS 8.0系统，其他版本CentOS未测试
 
 ## 1. 准备工作
 ### 1.1 设置root密码（适用于谷歌云，腾讯云等不提供root密码的VPS）
@@ -17,9 +16,9 @@ sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_
 reboot
 ```
 ## 2. 安装socat并执行更新
-### 安装socat
+### 安装socat，wegt
 ```
-sudo apt-get install socat -y
+sudo apt-get install socat wegt -y
 ```
 ### 执行更新
 ```
