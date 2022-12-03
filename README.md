@@ -49,13 +49,19 @@ lsmod | grep bbr
 ```
 ## 4. 安装acme.sh
 ```
-curl  https://get.acme.sh | sh -s email=my@example.com     # 替换 my@example.com 为自己的邮箱地址
-~/.acme.sh/     # 把 acme.sh 安装到 home 目录下
-alias acme.sh=~/.acme.sh/acme.sh     # 创建一个 bash 的 alias, 方便使用
-crontab -l     # 查看生成的定时任务
-acme.sh --issue -d mydomain.com --standalone --keylength ec-256     # 替换 mydomain.com 为自己的域名地址
-~/.acme.sh/acme.sh --install-cert -d www.mydomain.com --key-file /root/private.key --fullchain-file /root/cert.crt     # 替换www.mydomain.com为自己的域名地址
-~/.acme.sh/acme.sh  --upgrade  --auto-upgrade
+curl  https://get.acme.sh | sh -s email=my@example.com     
+# 替换 my@example.com 为自己的邮箱地址
+~/.acme.sh/     
+# 把 acme.sh 安装到 home 目录下
+alias acme.sh=~/.acme.sh/acme.sh     
+# 创建一个 bash 的 alias, 方便使用
+crontab -l     
+# 查看生成的定时任务
+acme.sh --issue -d mydomain.com --standalone --keylength ec-256     
+# 替换 mydomain.com 为自己的域名地址
+acme.sh --install-cert -d mydomain.me --fullchain-file /etc/ssl/private/xray.crt --key-file /etc/ssl/private/xray.key --ecc     
+# 替换 mydomain.com 为自己的域名地址
+acme.sh --upgrade --auto-upgrade
 systemctl enable nginx     # 开机自动启动Nginx
 systemctl restart nginx     # 重新启动Nginx
 systemctl restart xray     # 重新启动Xray
