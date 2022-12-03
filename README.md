@@ -52,21 +52,17 @@ lsmod | grep bbr
 systemctl stop nginx
 curl  https://get.acme.sh | sh -s email=my@example.com     
 # 替换 my@example.com 为自己的邮箱地址
-~/.acme.sh/     
-# 把 acme.sh 安装到 home 目录下
-alias acme.sh=~/.acme.sh/acme.sh     
-# 创建一个 bash 的 alias, 方便使用    
-acme.sh --issue -d mydomain.com --standalone --keylength ec-256     
-# 替换 mydomain.com 为自己的域名地址
-acme.sh --install-cert -d mydomain.me --fullchain-file /etc/ssl/private/xray.crt --key-file /etc/ssl/private/xray.key --ecc     
-# 替换 mydomain.com 为自己的域名地址,cret和key要有755的权限
+~/.acme.sh/     # 把 acme.sh 安装到 home 目录下
+alias acme.sh=~/.acme.sh/acme.sh     # 创建一个 bash 的 alias, 方便使用    
+acme.sh --issue -d mydomain.com --standalone --keylength ec-256     # 替换 mydomain.com 为自己的域名地址
+acme.sh --install-cert -d mydomain.me --fullchain-file /etc/ssl/private/xray.crt --key-file /etc/ssl/private/xray.key --ecc     # 替换 mydomain.com 为自己的域名地址,cret和key要有755的权限
 acme.sh --upgrade --auto-upgrade
 ```
 
 ## 5. 安装并启动Nginx
 ```
-yum install -y nginx
-systemctl start nginx
+sudo apt-get install nginx
+mkdir -p /var/www/website/html      # 创建一个网站专用的文件夹
 ```
 
 
