@@ -18,7 +18,7 @@ reboot
 ## 2. 安装依赖并执行更新
 ### 安装依赖
 ```
-sudo apt-get install openssl cron socat curl wegt -y
+sudo apt-get install openssl cron socat curl wget
 ```
 ### 执行更新
 ```
