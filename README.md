@@ -59,7 +59,7 @@ alias acme.sh=~/.acme.sh/acme.sh
 acme.sh --issue -d mydomain.com --standalone --keylength ec-256     
 # 替换 mydomain.com 为自己的域名地址
 acme.sh --install-cert -d mydomain.me --fullchain-file /etc/ssl/private/xray.crt --key-file /etc/ssl/private/xray.key --ecc     
-# 替换 mydomain.com 为自己的域名地址
+# 替换 mydomain.com 为自己的域名地址,cret和key要有755的权限
 acme.sh --upgrade --auto-upgrade
 ```
 
