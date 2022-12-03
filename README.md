@@ -62,10 +62,6 @@ acme.sh --issue -d mydomain.com --standalone --keylength ec-256
 acme.sh --install-cert -d mydomain.me --fullchain-file /etc/ssl/private/xray.crt --key-file /etc/ssl/private/xray.key --ecc     
 # 替换 mydomain.com 为自己的域名地址
 acme.sh --upgrade --auto-upgrade
-systemctl enable nginx     # 开机自动启动Nginx
-systemctl restart nginx     # 重新启动Nginx
-systemctl restart xray     # 重新启动Xray
-systemctl status xray     # 查看Xray运行状态
 ```
 
 ## 5. 安装并启动Nginx
